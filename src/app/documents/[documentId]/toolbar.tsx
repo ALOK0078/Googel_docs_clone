@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
-import { AlignCenterIcon, AlignJustify, AlignLeft, AlignLeftIcon, AlignRightIcon, BoldIcon, ChevronDown, HighlighterIcon, ImageIcon, ItalicIcon, Link2Icon, ListIcon, ListOrderedIcon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, MinusIcon, PlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SearchIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon, UploadIcon } from "lucide-react";
+import { AlignCenterIcon, AlignJustify, AlignLeft, AlignLeftIcon, AlignRightIcon, BoldIcon, ChevronDown, HighlighterIcon, ImageIcon, ItalicIcon, Link2Icon, ListCollapseIcon, ListIcon, ListOrderedIcon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, MinusIcon, PlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SearchIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon, UploadIcon } from "lucide-react";
 import{type Level} from "@tiptap/extension-heading";
 import {type ColorResult,SketchPicker} from "react-color";
 import {
@@ -26,6 +26,62 @@ import { Button } from "@/components/ui/button";
 import { on } from "events";
 import { set } from "date-fns";
 
+const   LineHeightButton = ()=>{
+    const { editor } = useEditorStore();
+
+    const lineheights = [
+        {
+            label: "default",
+            value: "normal",
+        },
+        {
+            label: "single",
+            value: "1.0",
+            
+        },
+        {
+            label: "1.5",
+            value: "1.5",
+        },
+        
+        {
+            label: "Double",
+            value: "2.0",
+        },
+        {
+            label: "2.5",
+            value: "2.5",
+        },
+        {
+            label: "3.0",
+            value: "3.0",
+        }
+    ]
+   
+    return(
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <button  className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                >
+                    <ListCollapseIcon className="size-4"  />
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+              {lineheights.map(({label, value})=>(
+                <button
+                    key={value}
+                    onClick={()=>editor?.chain().focus().setLineHeight(value).run()}
+                    className={cn("flex items-center gap-x-2 px-2 py-2 rounde-sm hover:bg-neutral-200/80", 
+                       editor?.getAttributes("paragraph").lineHeight ===value && "bg-neutral-200/80")}
+                    >
+                 
+                    <span className="text-sm">{label}</span>
+                </button>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
 const FontsizeButton = ()=>{
     const { editor } = useEditorStore();
     const currentFontSize = editor?.getAttributes("textStyle").fontSize
@@ -564,7 +620,7 @@ export const Toolbar = () => {
      <LinkButton/>
      <ImageButton/>
     <AlignButton/>
-        {/*Todo:Higlight line height*/}
+    <LineHeightButton/>
     <ListButton/>
     {sections[2].map((item)=>(
             <ToolbarButton key={item.label} {...item} />
