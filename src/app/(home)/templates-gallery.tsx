@@ -20,7 +20,7 @@ export const TemplatesGallery =()=>{
     const create = useMutation(api.documents.create);
     const [isCreating,setIsCreating] = useState(false);
 
-    const onTemplateClick = (title:string,initialContent?:string) => {
+    const onTemplateClick = (title:string,initialContent:string) => {
         setIsCreating(true);
         create({title,initialContent})
         .catch(() => toast.error("Failed to create document"))
@@ -49,7 +49,7 @@ export const TemplatesGallery =()=>{
                             )}>
                             <button
                             disabled={isCreating}
-                            onClick={()=>onTemplateClick(template.label,"")}
+                            onClick={()=>onTemplateClick(template.label,template.initialContent)}
                             style={{
                                 backgroundImage:`url(${template.imageUrl})`,
                                 backgroundSize:"cover",

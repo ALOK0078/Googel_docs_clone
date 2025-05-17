@@ -17,7 +17,7 @@ import FontFamily from '@tiptap/extension-font-family'
 import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image'
 import {useEditorStore} from '@/store/use-editor-store';
-
+import { useStorage } from '@liveblocks/react';
 import { FontSizextension } from '@/extensions/font-size';
 import { LineHeightExtension } from '@/extensions/line-height';
 import { Ruler } from './ruler';
@@ -25,8 +25,17 @@ import { Ruler } from './ruler';
 import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { Threads } from './threads';
 
-export const Editor = () => {
-    const liveblocks = useLiveblocksExtension();
+interface EditorProps {
+    initialContent?: string|undefined;
+};
+
+export const Editor = ({initialContent}:EditorProps) => {
+    const leftmargin = useStorage((root) => root.leftMargin);
+    const rightmargin = useStorage((root) => root.rightMargin);
+    const liveblocks = useLiveblocksExtension({
+        initialContent,
+        offlineSupport_experimental:true,
+    });
     const {setEditor} = useEditorStore();
 
     const editor = useEditor({
@@ -58,7 +67,7 @@ export const Editor = () => {
 
         editorProps: {
             attributes: {
-                style :"padding-left:56px; padding-right:56px; padding-top:40px; padding-bottom:40px;",
+                style :`padding-left:${leftmargin??56}px; padding-right:${rightmargin??56}px;`,
                 class: 'focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text',
             },
         },
