@@ -26,13 +26,18 @@ export async function POST(req : Request) {
     const isOwner = document.ownerId === user.id;
     const isOrganizationMember = 
     !!(document.organizationId && document.organizationId === sessionClaims.org_id);
+    const name = user.fullName?? user.primaryEmailAddress?.emailAddress??"Anonymous";
+    const nametoNumber = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const hue = Math.abs(nametoNumber)%360;
+    const color =`hsl(${hue},80%,60%)`;
 
     // if(!isOwner && !isOrganizationMember){
     //     return new Response("Unauthorized", { status: 401 });
     // }
     const session = liveblocks.prepareSession(user.id,{
         userInfo:{
-           name: user.fullName?? user.primaryEmailAddress?.emailAddress??"Anonymous",
+           name,
+            color,
            avatar : user.imageUrl, 
         }
     });
