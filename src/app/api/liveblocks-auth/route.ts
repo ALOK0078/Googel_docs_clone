@@ -23,9 +23,9 @@ export async function POST(req : Request) {
         return new Response("Document not found", { status: 404 });
     }
 
-    const isOwner = document.ownerId === user.id;
-    const isOrganizationMember = 
-    !!(document.organizationId && document.organizationId === sessionClaims.org_id);
+    // const isOwner = document.ownerId === user.id;
+    // const isOrganizationMember = 
+    // !!(document.organizationId && document.organizationId === sessionClaims.org_id);
     const name = user.fullName?? user.primaryEmailAddress?.emailAddress??"Anonymous";
     const nametoNumber = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const hue = Math.abs(nametoNumber)%360;

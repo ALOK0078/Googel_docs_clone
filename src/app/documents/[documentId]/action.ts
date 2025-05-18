@@ -16,11 +16,13 @@ export async function getUser() { ///here in video name is Users
     const response = await clerk.users.getUserList({
          organizationId: [sessionClaims?.org_id as string],
     })
+    
 
     const users =response.data.map((user) => ({
         id: user.id,
-        name: user.fullName??user.primaryEmailAddress?.emailAddress??"Anonymous",
+        name: user.fullName?? user.primaryEmailAddress?.emailAddress??"Anonymous",
         avatar: user.imageUrl,
+        color:""
     }));
     return users;
 }

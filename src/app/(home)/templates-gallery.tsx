@@ -13,7 +13,7 @@ import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
-import { title } from "process";
+
 
 export const TemplatesGallery =()=>{
     const router =  useRouter();

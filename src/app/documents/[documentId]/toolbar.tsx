@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
-import { AlignCenterIcon, AlignJustify, AlignLeft, AlignLeftIcon, AlignRightIcon, BoldIcon, ChevronDown, HighlighterIcon, ImageIcon, ItalicIcon, Link2Icon, ListCollapseIcon, ListIcon, ListOrderedIcon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, MinusIcon, PlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SearchIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon, UploadIcon } from "lucide-react";
+import { AlignCenterIcon, AlignJustify, AlignLeftIcon, AlignRightIcon, BoldIcon, ChevronDown, HighlighterIcon, ImageIcon, ItalicIcon, Link2Icon, ListCollapseIcon, ListIcon, ListOrderedIcon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, MinusIcon, PlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SearchIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon, UploadIcon } from "lucide-react";
 import{type Level} from "@tiptap/extension-heading";
 import {type ColorResult,SketchPicker} from "react-color";
 import {
@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
+   
 } from "@/components/ui/dropdown-menu";
 import{
     Dialog,
@@ -19,12 +19,10 @@ import{
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { on } from "events";
-import { set } from "date-fns";
 
 const   LineHeightButton = ()=>{
     const { editor } = useEditorStore();
